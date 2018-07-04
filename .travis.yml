@@ -1,24 +1,42 @@
+sudo: required
+
 language: android
-android:
-  components:
-    - tools
-    - platform-tools
-    - build-tools-27.0.2
-    - android-27
-    - add-on
-    - extra
-licenses:
-    - 'android-sdk-license-.+'
-jdk:
-    - oraclejdk8
-script:
-    - ./gradlew :repository:testMockDebugUnitTest :repository:testProdDebugUnitTest :repository:testProdReleaseUnitTest
+jdk: oraclejdk8
+
 before_cache:
-    - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
+
+before_install:
+- yes | sdkmanager "platforms;android-27"
+
+before_script:
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+
 cache:
   directories:
-    - $HOME/.m2
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-before_install:
-    - yes | sdkmanager --licenses && sdkmanager --update
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
+  - $HOME/.android/build-cache
+
+env:
+ global:
+ - ANDROID_API=27
+ - ANDROID_BUILD_TOOLS=27.0.2
+
+android:
+ components:
+  - tools
+  - tools # Running this twice get's the latest build tools
+  - platform-tools
+  - android-${ANDROID_API}
+  - build-tools-${ANDROID_BUILD_TOOLS}
+  - android-22
+  - sys-img-armeabi-v7a-android-22
+  - extra
+
+script:
+   - ./gradlew build connectedCheck
