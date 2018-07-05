@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    BluetoothArduino mBlue = BluetoothArduino.getInstance("ExampleRobot");
+    BluetoothArduino mBlue = BluetoothArduino.getInstance("brazo");
 
     void setup(){
         mBlue.Connect();
