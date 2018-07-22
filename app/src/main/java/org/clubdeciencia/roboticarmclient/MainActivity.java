@@ -22,10 +22,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        final Button button = findViewById(R.id.bluetoothButton);
+        final Button btButton = findViewById(R.id.bluetoothButton);
+        final Button servoButton = findViewById(R.id.servoButton);
+
+        boolean connected = false;
+
+        btButton.setEnabled(false);
 
 
-        button.setEnabled(false);
+
+
+        // servoButton.setEnabled(false);
+
+
+
+
         /*
         Comprobar si el dispositivo es compatible con bluetooth
          */
@@ -51,9 +62,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        servoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+        });
 
-        button.setOnClickListener(new View.OnClickListener() {
+        btButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setup();
@@ -62,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(BTAdapter.isEnabled()) {
             infoTextView.setText("Bluetooth Ready ;)");
-            button.setEnabled(true);
+            btButton.setEnabled(true);
         }else{
             infoTextView.setText("Bluetooth Not enabled :/");
         }

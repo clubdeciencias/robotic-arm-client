@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Robotic Arm Client</string>
+    <string name="title_activity_control">controlActivity</string>
+    <string name="title_activity_servo_control">servoControl</string>
 </resources>
