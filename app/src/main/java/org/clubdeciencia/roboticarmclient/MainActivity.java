@@ -2,6 +2,7 @@ package org.clubdeciencia.roboticarmclient;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,8 +15,14 @@ import com.aronbordin.*;
 
 public class MainActivity extends AppCompatActivity {
 
+    boolean connected = false;
     public static int REQUEST_BLUETOOTH = 1;
     boolean BLUETOOTH_STATUS;
+    BluetoothAdapter BTAdapter = BluetoothAdapter.getDefaultAdapter();
+    Handler btConInfo = new Handler();
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,14 +32,14 @@ public class MainActivity extends AppCompatActivity {
         final Button btButton = findViewById(R.id.bluetoothButton);
         final Button servoButton = findViewById(R.id.servoButton);
 
-        boolean connected = false;
+
 
         btButton.setEnabled(false);
 
 
 
 
-        // servoButton.setEnabled(false);
+        servoButton.setEnabled(false);
 
 
 
@@ -41,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         Comprobar si el dispositivo es compatible con bluetooth
          */
         final TextView infoTextView = findViewById(R.id.infoTextView);
-        BluetoothAdapter BTAdapter = BluetoothAdapter.getDefaultAdapter();
         // Phone does not support Bluetooth so let the user know and exit.
         if (BTAdapter == null) {
             new AlertDialog.Builder(this)
@@ -62,28 +68,41 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
         servoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent( MainActivity.this, servoControl.class);
+                startActivity(i);
+                }
         });
+
 
         btButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setup();
+                if(connected){
+                    servoButton.setEnabled(true);
+                }
             }
         });
 
-        if(BTAdapter.isEnabled()) {
-            infoTextView.setText("Bluetooth Ready ;)");
-            btButton.setEnabled(true);
-        }else{
-            infoTextView.setText("Bluetooth Not enabled :/");
-        }
+        final boolean post = btConInfo.post(new Runnable() {
+            @Override
+            public void run() {
+                if (BTAdapter.isEnabled()) {
+                    infoTextView.setText("Bluetooth Ready ;)");
+                    btButton.setEnabled(true);
+                } else {
+                    infoTextView.setText("Bluetooth Not enabled :/");
+                }
+                btConInfo.postDelayed(this, 500); // set time here to refresh textView
+            }
+        });
+
+
     }
-
-
 
     BluetoothArduino mBlue = BluetoothArduino.getInstance("brazo");
 
@@ -99,4 +118,6 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) BLUETOOTH_STATUS = true;
         }
     }
+
+
 }

@@ -20,10 +20,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controlActivity"
-            android:label="@string/title_activity_control"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".servoControl"
             android:label="@string/title_activity_servo_control"
             android:theme="@style/AppTheme.NoActionBar"></activity>
