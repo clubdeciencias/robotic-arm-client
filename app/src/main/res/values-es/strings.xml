@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_arm_control">Controlar Brazo</string>
+    <string name="connect_to_arm">Conectar Brazo</string>
+    <string name="default_info_text">Hola</string>
+    <string name="control_arm_activity">Controlar Brazo</string>
+    <string name="bluetooth_ok_msg">Bluetooth Listo ;)</string>
+    <string name="bluetooth_disabled_msg">Bluetooth Desactivado :/</string>
+    <string name="bt_notsupported_title">No compatible</string>
+    <string name="bt_notsupported_msg">Tu dispositivo no soporta bluetooth</string>
+    <string name="exit">Salir</string>
+</resources>
