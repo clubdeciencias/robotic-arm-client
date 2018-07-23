@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         final Button btButton = findViewById(R.id.bluetoothButton);
-        final Button servoButton = findViewById(R.id.servoButton);
+        final Button armButton = findViewById(R.id.armButton);
 
 
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        servoButton.setEnabled(false);
+        armButton.setEnabled(true);
 
 
 
@@ -51,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
         // Phone does not support Bluetooth so let the user know and exit.
         if (BTAdapter == null) {
             new AlertDialog.Builder(this)
-                    .setTitle("Not compatible")
-                    .setMessage("Your phone does not support Bluetooth")
-                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.bt_notsupported_title)
+                    .setMessage(R.string.bt_notsupported_msg)
+                    .setPositiveButton(R.string.exit, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             System.exit(0);
                         }
@@ -69,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        servoButton.setOnClickListener(new View.OnClickListener() {
+        armButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent( MainActivity.this, servoControl.class);
+                Intent i = new Intent( MainActivity.this, armControl.class);
                 startActivity(i);
                 }
         });
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setup();
                 if(connected){
-                    servoButton.setEnabled(true);
+                    armButton.setEnabled(true);
                 }
             }
         });
@@ -92,10 +92,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (BTAdapter.isEnabled()) {
-                    infoTextView.setText("Bluetooth Ready ;)");
+                    infoTextView.setText(R.string.bluetooth_ok_msg);
                     btButton.setEnabled(true);
                 } else {
-                    infoTextView.setText("Bluetooth Not enabled :/");
+                    infoTextView.setText(R.string.bluetooth_disabled_msg);
                 }
                 btConInfo.postDelayed(this, 500); // set time here to refresh textView
             }

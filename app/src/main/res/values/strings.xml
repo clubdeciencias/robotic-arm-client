@@ -1,5 +1,12 @@
 <resources>
-    <string name="app_name">Robotic Arm Client</string>
-    <string name="title_activity_control">controlActivity</string>
-    <string name="title_activity_servo_control">servoControl</string>
+    <string name="app_name" translatable="false">Robotic Arm Client</string>
+    <string name="title_activity_arm_control">Arm Control</string>
+    <string name="connect_to_arm">Connect to Arm</string>
+    <string name="default_info_text">Hi</string>
+    <string name="control_arm_activity">Control Arm</string>
+    <string name="bluetooth_ok_msg">Bluetooth Ready ;)</string>
+    <string name="bluetooth_disabled_msg">Bluetooth Not enabled :/</string>
+    <string name="bt_notsupported_title">Not compatible</string>
+    <string name="bt_notsupported_msg">Your device does not support Bluetooth</string>
+    <string name="exit">Exit</string>
 </resources>
