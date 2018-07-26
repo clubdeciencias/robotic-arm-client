@@ -23,9 +23,6 @@
             android:name=".armControl"
             android:label="@string/title_activity_arm_control"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-    <activity
-        android:name=".DeviceList"
-        android:label="Device List"></activity>
-</application>
+    </application>
 
 </manifest>
