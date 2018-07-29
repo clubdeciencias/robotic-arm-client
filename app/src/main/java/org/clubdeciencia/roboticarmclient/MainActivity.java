@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         final Button btButton = findViewById(R.id.bluetoothButton);
         final Button armButton = findViewById(R.id.armButton);
         final Button disconnectButton = findViewById(R.id.disconnectButton);
@@ -53,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         btButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ((cBaseApplication)this.getApplicationContext()).ConnectBT.execute();//Call the class to connect
+                cBaseApplication app = (cBaseApplication) MainActivity.this.getApplication();
+                app.bluetooth.execute();//Call the class to connect
 
                 btButton.setEnabled(false);
                 armButton.setEnabled(true);

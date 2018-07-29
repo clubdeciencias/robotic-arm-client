@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -20,23 +21,17 @@ public class cBaseApplication extends Application {
     //SPP UUID. Look for it
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
-
+    ConnectBT bluetooth;
     @Override
     public void onCreate()
     {
         super.onCreate();
-        btSocket = new BluetoothSocket();
-        ConnectBT = new ConnectBT();
+        bluetooth = new ConnectBT();
+
     }
     class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
     {
         private boolean ConnectSuccess = true; //if it's here, it's almost connected
-
-        @Override
-        protected void onPreExecute()
-        {
-            progress = ProgressDialog.show(MainActivity.this, "Connecting...", "Please wait!!!");  //show a progress dialog
-        }
 
         @Override
         protected Void doInBackground(Void... devices) //while the progress dialog is shown, the connection is done in background
@@ -65,15 +60,19 @@ public class cBaseApplication extends Application {
 
             if (!ConnectSuccess)
             {
-                MainActivity.msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
+                msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
             }
             else
             {
-                MainActivity.msg("Connected.");
+                msg("Connected.");
                 isBtConnected = true;
             }
             progress.dismiss();
         }
+    }
+    protected void msg(String s)
+    {
+        Toast.makeText(this,s,Toast.LENGTH_LONG).show();
     }
 
 }
